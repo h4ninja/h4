@@ -58,7 +58,7 @@ function App() {
 					<button
 						type="button"
 						onClick={toggleAudio}
-						className="mt-[5px] mb-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/80 text-black shadow-sm backdrop-blur transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+						className="mt-[5px] mb-[5px] inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/80 text-black shadow-sm backdrop-blur transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
 						aria-pressed={isPlaying}
 						aria-label={isPlaying ? 'Turn audio off' : 'Turn audio on'}
 					>
@@ -69,6 +69,27 @@ function App() {
 							<FiVolumeX size={18} aria-hidden="true" />
 						)}
 					</button>
+					<nav
+						className="mb-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-[Arial] text-base font-medium"
+						aria-label="Projects"
+					>
+						<a
+							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+							href="https://openworld.h4.ninja"
+							target="_blank"
+							rel="noreferrer"
+						>
+							openworld
+						</a>
+						<a
+							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+							href="https://gitlab.com/h4ninja/memory"
+							target="_blank"
+							rel="noreferrer"
+						>
+							memory
+						</a>
+					</nav>
 					<nav className="inline-flex gap-4 text-base font-medium" aria-label="Links">
 						<a
 							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
