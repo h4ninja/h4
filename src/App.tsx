@@ -58,7 +58,7 @@ function App() {
 					<button
 						type="button"
 						onClick={toggleAudio}
-						className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/80 text-black shadow-sm backdrop-blur transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+						className="mt-[5px] mb-5 inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/80 text-black shadow-sm backdrop-blur transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
 						aria-pressed={isPlaying}
 						aria-label={isPlaying ? 'Turn audio off' : 'Turn audio on'}
 					>
