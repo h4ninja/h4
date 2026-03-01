@@ -93,7 +93,7 @@ function App() {
 					<nav className="inline-flex gap-4 text-base font-medium" aria-label="Links">
 						<a
 							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
-							href="https://gitlab.com/h4ninja1/"
+							href="https://gitlab.com/h4ninja/"
 							target="_blank"
 							rel="noreferrer"
 						>
