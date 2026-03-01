@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+html,
+body,
+#root {
+	height: 100%;
+}
+
+body {
+	font-family: "Keania One", Helvetica, Arial, sans-serif;
+	background: #fff;
+	color: #000;
+	overflow: hidden;
+}
