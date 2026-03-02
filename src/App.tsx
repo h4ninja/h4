@@ -198,7 +198,7 @@ function App() {
 						</a>
 						<a
 							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
-							href="https://x.com/h4h4269876"
+							href="https://x.com/h4h4ninja"
 							target="_blank"
 							rel="noreferrer"
 						>
@@ -208,8 +208,8 @@ function App() {
 					</nav>
 				</div>
 			</main>
-			<div className="fixed bottom-4 left-1/2 z-50 w-[min(92vw,560px)] -translate-x-1/2 rounded-full border border-black/10 bg-white/80 px-4 py-3 shadow-sm backdrop-blur">
-				<div className="flex items-center gap-3">
+			<div className="fixed bottom-4 left-1/2 z-50 w-[min(92vw,560px)] -translate-x-1/2 rounded-full bg-white/80 px-4 py-3 backdrop-blur">
+				<div className="flex items-center justify-center gap-3">
 					<button
 						type="button"
 						onClick={toggleAudio}
@@ -230,7 +230,7 @@ function App() {
 						step={0.01}
 						value={Math.min(position, duration || position)}
 						onChange={(event) => onSeek(Number(event.target.value))}
-						className="h-1.5 w-full cursor-pointer accent-black"
+						className="h-1.5 w-1/2 cursor-pointer accent-black"
 						aria-label="Song position"
 					/>
 				</div>
