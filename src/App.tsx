@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
 import { FiPause, FiPlay } from 'react-icons/fi'
-import { SiGitlab, SiX } from 'react-icons/si'
+import { SiGithub, SiGitlab, SiX } from 'react-icons/si'
 
 function App() {
 	const [isPlaying, setIsPlaying] = useState(true)
-	const [position, setPosition] = useState(0)
-	const [duration, setDuration] = useState(0)
 	const isPlayingRef = useRef(true)
 	const loopIdRef = useRef(0)
 	const layerCountRef = useRef(1)
 	const layerOffsetsMsRef = useRef<number[]>([0])
 	const audioHandlesRef = useRef<Array<{ audio: HTMLAudioElement; onEnded: () => void }>>([])
+	const backgroundAudioRef = useRef<HTMLAudioElement | null>(null)
 
 	useEffect(() => {
 		const src = 'https://h4h4.s3.ap-southeast-2.amazonaws.com/introduction.mp3'
+		const backgroundSrc = 'https://h4h4.s3.ap-southeast-2.amazonaws.com/phase-VI.mp3'
 		const minDelayMs = 7000
 		const maxDelayMs = 13000
 		const maxLayers = 3
@@ -81,9 +81,18 @@ function App() {
 
 		const primary = createHandle(onPrimaryLoop)
 		audioHandlesRef.current = [primary]
+		const background = new Audio(backgroundSrc)
+		background.preload = 'auto'
+		background.loop = true
+		background.volume = 0.35
+		backgroundAudioRef.current = background
 
 		if (isPlayingRef.current) {
 			void primary.audio.play().catch(() => {
+				isPlayingRef.current = false
+				setIsPlaying(false)
+			})
+			void background.play().catch(() => {
 				isPlayingRef.current = false
 				setIsPlaying(false)
 			})
@@ -91,20 +100,12 @@ function App() {
 
 		return () => {
 			destroyHandles(false)
-		}
-	}, [])
-
-	useEffect(() => {
-		const timer = window.setInterval(() => {
-			const primary = audioHandlesRef.current[0]?.audio
-			if (!primary) return
-			setPosition(primary.currentTime)
-			if (Number.isFinite(primary.duration)) {
-				setDuration(primary.duration)
+			if (backgroundAudioRef.current) {
+				backgroundAudioRef.current.pause()
+				backgroundAudioRef.current.currentTime = 0
+				backgroundAudioRef.current = null
 			}
-		}, 200)
-
-		return () => window.clearInterval(timer)
+		}
 	}, [])
 
 	const toggleAudio = async () => {
@@ -129,25 +130,22 @@ function App() {
 					break
 				}
 			}
+			const background = backgroundAudioRef.current
+			if (background) {
+				try {
+					await background.play()
+				} catch {
+					isPlayingRef.current = false
+					setIsPlaying(false)
+				}
+			}
 			return
 		}
 
 		isPlayingRef.current = false
 		for (const handle of handles) handle.audio.pause()
+		if (backgroundAudioRef.current) backgroundAudioRef.current.pause()
 		setIsPlaying(false)
-	}
-
-	const onSeek = (nextPosition: number) => {
-		const handles = audioHandlesRef.current
-		if (handles.length === 0) return
-
-		setPosition(nextPosition)
-		for (const handle of handles) {
-			const next = Number.isFinite(handle.audio.duration)
-				? Math.min(nextPosition, handle.audio.duration)
-				: nextPosition
-			handle.audio.currentTime = Math.max(0, next)
-		}
 	}
 
 	return (
@@ -171,7 +169,7 @@ function App() {
 						</a>
 						<a
 							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
-							href="https://gitlab.com/h4ninja/memory"
+							href="https://github.com/h4ninja/memory"
 							target="_blank"
 							rel="noreferrer"
 						>
@@ -189,6 +187,15 @@ function App() {
 					<nav className="inline-flex gap-4 text-base font-medium" aria-label="Links">
 						<a
 							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
+							href="https://github.com/h4ninja"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<span className="sr-only">GitHub</span>
+							<SiGithub size={20} aria-hidden="true" />
+						</a>
+						<a
+							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
 							href="https://gitlab.com/h4ninja/"
 							target="_blank"
 							rel="noreferrer"
@@ -198,7 +205,7 @@ function App() {
 						</a>
 						<a
 							className="text-black no-underline hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/30 focus-visible:ring-offset-4 focus-visible:ring-offset-white"
-							href="https://x.com/h4h4ninja"
+							href="https://x.com/imh4ninja"
 							target="_blank"
 							rel="noreferrer"
 						>
@@ -223,16 +230,6 @@ function App() {
 							<FiPlay size={16} aria-hidden="true" />
 						)}
 					</button>
-					<input
-						type="range"
-						min={0}
-						max={duration > 0 ? duration : 0}
-						step={0.01}
-						value={Math.min(position, duration || position)}
-						onChange={(event) => onSeek(Number(event.target.value))}
-						className="h-1.5 w-1/2 cursor-pointer accent-black"
-						aria-label="Song position"
-					/>
 				</div>
 			</div>
 		</>
