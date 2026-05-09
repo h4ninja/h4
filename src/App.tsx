@@ -45,9 +45,9 @@ const reviews = [
 
 function App() {
 	return (
-		<main className="min-h-screen bg-white p-6" aria-label="h4">
-			<div className="mx-auto flex max-w-5xl flex-col items-center gap-8 pt-[15vh]">
-				<h1 className="m-0 text-xl text-[clamp(64px,18vw,200px)] font-bold tracking-[0.02em] leading-[0.9]">
+		<main className="min-h-screen bg-white p-4 sm:p-6" aria-label="h4">
+			<div className="mx-auto flex max-w-5xl flex-col items-center gap-6 pt-8">
+				<h1 className="m-0 text-xl text-[clamp(56px,12vw,140px)] font-bold tracking-[0.02em] leading-[0.9]">
 					h4
 				</h1>
 				<nav className="inline-flex gap-4 text-base font-medium" aria-label="Links">
